@@ -1,0 +1,56 @@
+node("shared-jenkins"){
+
+    def SSH_CREDENTIALS_ID = '35cd86cd-49b5-4144-bfbc-d5b8f344f88e'
+
+    def DOCKER_ARTIFACT_REPO = "artifact-repo.service.rcsnp.rsiapps.internal:6069"
+    def DOCKER_IMAGE = "rcs/adaptive-data-file-extract"
+
+    def GITHUB_CREDENTIALS_ID = '9f628a55-a8da-49e7-b7e6-219f87ba1982'
+
+    def GITHUB_REPO = 'git@github.com:rsinsights/adaptive-data-file-extract.git'
+    def git_commit = null
+    def NOMAD_JOBFILE_DIR = './rcs-config/nomad'
+    def nomadJobFile = "${NOMAD_JOBFILE_DIR}/adaptive-data-file-extract.nomad"
+
+    def ENV = "np"
+    env.BASTION_HOST_NAME = 'bastion'
+    env.AwsEnvironment = 'rcscorenp'
+    if (env.Environment == "prod" || env.Environment == "uat" ) {
+        ENV = "prod"
+	    env.AwsEnvironment = 'rcscoreprod'
+	    env.BASTION_HOST_NAME = 'bastion_prod'
+    }
+
+    def HOST_TO_RUN_THE_NOMAD_JOB_FROM = InetAddress.getByName(env.BASTION_HOST_NAME).address.collect { it & 0xFF }.join('.')
+    def SSL_PARAMS = ' -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  '
+    def SSH_WITH_PARAMS = "ssh ${SSL_PARAMS} -l ec2-user"
+
+    stage ('Checkout adaptive-data-file-extract repo') {
+
+        git branch: env.GITHUB_BRANCH, credentialsId: GITHUB_CREDENTIALS_ID, url: GITHUB_REPO
+        sh "git rev-parse HEAD > commit"
+        git_commit = readFile('commit').trim()
+    }
+
+    stage('Build docker container'){
+        docker.withTool('docker'){
+            def DOCKER_IMAGE_TAG = "${DOCKER_IMAGE}:${git_commit}"
+            sh " cs builder build -d ./ -f ./Dockerfile -t ${DOCKER_IMAGE_TAG}"
+        }
+    }
+
+    stage('Deploy adaptive-data-file-extract'){
+        sshagent (credentials: [SSH_CREDENTIALS_ID]) {
+
+                sh " ls -l "
+                 sh "${SSH_WITH_PARAMS} ${HOST_TO_RUN_THE_NOMAD_JOB_FROM}  mkdir -p ${NOMAD_JOBFILE_DIR}"
+                 sh "sed -i 's/TAG/${git_commit}/g'  ${nomadJobFile}"
+                 sh "sed -i 's/@@ENV@@/${ENV}/g'  ${nomadJobFile}"
+                 sh "sed -i 's/ENVIRONMENT/${env.Environment}/g'  ${nomadJobFile}"
+                 sh "sed -i 's/AWS_ENV/${env.AwsEnvironment}/g'   ${nomadJobFile}"
+                 sh " scp ${SSL_PARAMS}  ${nomadJobFile} ec2-user@${HOST_TO_RUN_THE_NOMAD_JOB_FROM}:${NOMAD_JOBFILE_DIR} "
+                 sh "${SSH_WITH_PARAMS} ${HOST_TO_RUN_THE_NOMAD_JOB_FROM} cs run   ${nomadJobFile} "
+                 sh "${SSH_WITH_PARAMS} ${HOST_TO_RUN_THE_NOMAD_JOB_FROM} rm -rf ${NOMAD_JOBFILE_DIR}"
+        }
+    }
+}
