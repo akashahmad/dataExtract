@@ -1,0 +1,45 @@
+.main-div-of-popup-component{
+    background: #393939;    
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 111;
+}
+.popup-background-color{
+    background: #393939;
+    min-height: 625px;
+}
+.popup-background-color .main-div-of-popup{
+    background-color: #fff;
+    width: 50%;
+    border-radius: 10px;
+}
+.main-div-of-popup .heading-h5{
+    color: #0383c9;
+    font-size: 24px; 
+    padding: 20px 0px 0px 0px;
+}
+.main-div-of-popup .msg-below-heading{
+    color: #333333;
+    font-size: 18px;
+    margin-top: -20px;
+}
+.main-div-of-popup .btns-of-popup{
+    padding: 0px 0px 50px 0px ;
+}
+.main-div-of-popup .btn-pad-popup{
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+}
+.main-div-of-popup .btn-blue-popup{
+    background: #0383c9;
+    border: 1px solid #0383c9; 
+    padding: 10px 53px 10px 49px;
+}
+
+.main-div-of-popup .btn-green-popup{
+    padding: 10px 31px 10px 31px;
+    background: #81c442;
+    border: 1px solid #81c442; 
+}

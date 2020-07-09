@@ -1,0 +1,24 @@
+.main-header-div{
+    padding: 12px 0px 10px 0px;
+    box-shadow: 0 0 18px 0 rgba(9, 2, 45, 0.09);
+    background-color: #ffffff;
+}
+.main-header-div .img-header img{
+    padding: 10px 0px 0px 22px
+}
+.main-header-div ul li{
+    list-style: none;
+    padding-right: 22px;
+    color: #007bff;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;     
+}
+.main-header-div ul .vertical-line {
+    background: #ababab;
+    width: 1px;
+    height: 14px;
+    margin-top: 1px;
+    margin-right: 21px;
+  }
+/* .main .main-div-list */

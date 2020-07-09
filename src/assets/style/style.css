@@ -1,0 +1,10 @@
+@import './commonStyle.css';
+@import './flex.css';
+@import './margin&padding.css';
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #333333;
+}

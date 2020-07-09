@@ -1,0 +1,125 @@
+.main-div-of-reasearchData{
+    background-color:#333333;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0px 40px 0px;
+    /* height: -webkit-fill-available; */
+}
+.main-div-of-reasearchData .indside-main-div-of-researchData{
+    border-radius: 8px;
+    box-shadow: 0 0 18px 0 rgba(9, 2, 45, 0.09);
+    border: solid 1px #e6e6e6;
+    background-color: #ffffff;
+    padding: 15px 0px 30px 0px;
+}
+.main-div-of-reasearchData .indside-main-div-of-researchData h2{
+    padding:20px 0px 0px 40px;
+    color: #0383c9;
+    font-weight: 600;
+}
+/* form css starts from here */
+.form-container .inside-form-div{
+    padding: 20px 40px 0px 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.form-container .inside-form-div .starts-date-endDate{
+    display: flex;
+}
+.form-container .inside-form-div .starts-date-endDate .end-date-div{
+    margin: 0px 0px 0px 20px;
+
+}
+
+.form-container .inside-form-div .starts-date-endDate .react-date-picker__wrapper{
+    padding: 10px 15px 10px 15px;
+    color: #333333;
+    border: 1px solid #c9c9c9;
+}
+.form-container .label-div{
+    margin: 0px 0px 10px 0px;    
+}
+.form-container .inside-form-div .starts-date-endDate label{
+    color: #0383c9;
+    font-size: 16px;
+    font-weight: 600;
+}
+.form-container .inside-form-div .data-by-set{
+    padding: 0px 0px 0px 60px;
+}
+.form-container .inside-form-div .data-by-set label{
+    color: #0383c9;
+    font-size: 16px;
+    font-weight: 600;
+}
+.form-container .inside-form-div .data-by-set select{
+    width: 394px;
+    height: 45px;
+    margin: 10px 0px 0px 0px;
+    font-size: 16px;
+    color: #333333;
+    border: 1px solid #c9c9c9;
+    padding: 0px 0px 0px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+}
+/* rest of labels and inputs css */
+.form-container .main-div-of-another-inputs-and-labels{
+    padding:40px 40px 0px 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.form-container .main-div-of-another-inputs-and-labels .padding-right-side-div{
+    padding: 0px 0px 0px 60px;
+}
+.form-container .main-div-of-another-inputs-and-labels .inside-div-of-others-input select{
+    width: 394px;
+    height: 45px;
+    margin: 10px 0px 0px 0px;
+    font-size: 16px;
+    color: #333333;
+    border: 1px solid #c9c9c9;
+    padding: 0px 0px 0px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+}
+.form-container .main-div-of-another-inputs-and-labels .inside-div-of-others-input label{
+    color: #0383c9;
+    font-size: 16px;
+    font-weight: 600;
+}
+/* buttons css */
+.indside-main-div-of-researchData .form-container .buttons-main-div{
+    margin: 60px 0px 0px 0px;
+}
+.indside-main-div-of-researchData .form-container .buttons-main-div .inside-div-of-buttons{
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #e6e6e6;
+    padding: 35px 0px 0px 0px;
+}
+.indside-main-div-of-researchData .form-container .buttons-main-div .Cancel{
+  width: 123px;
+  border-radius: 5px;
+  background-color: #81c442;
+  border: 1px solid  #81c442;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  padding: 15px 0px 15px 0px;
+}
+.indside-main-div-of-researchData .form-container .buttons-main-div .Submit{
+    width: 123px;
+    border-radius: 5px;
+    background-color: #0383c9;
+    border: 1px solid  #0383c9;
+    color: #fff;  
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px 0px 0px 20px;
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+}
