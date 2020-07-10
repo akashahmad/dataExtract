@@ -1,17 +1,21 @@
-import React, {useState} from 'react'
-import Header from '../../components/header/header'
+import React, {useState, useEffect} from 'react'
 import ResearchData from '../../components/reasearchData/researchData'
-import SubmissionPopup from '../../components/submissionPopup/submissionPopup'
+import {Link, withRouter} from 'react-router-dom';
 
-export default () => {
+const Research = (props) => {
+    let {dispatch, history, user, location} = props;
 
-    const [submissionPopup, setSubmissionPopup] = useState(false);
-
+    useEffect(() => {
+        if (!user) {
+            history.push("/login")
+        }
+        // eslint-disable-next-line
+    }, [user, location.pathname]);
     return (
         <>
-        <SubmissionPopup setSubmissionPopup={setSubmissionPopup} submissionPopup={submissionPopup}/>
-        <Header />
-        <ResearchData setSubmissionPopup={setSubmissionPopup}/>
+        <ResearchData dispatch={dispatch}/>
         </>
     );
 }
+export default withRouter(Research)
+

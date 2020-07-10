@@ -1,0 +1,10 @@
+{
+  "apiUrl": "http://localhost:3001",
+  "version": "1.0",
+  "registeredUsers": [{ "login": "simu1", "password": "simu1" },
+                    { "login": "simu2", "password": "simu2" },
+                    { "login": "simu3", "password": "simu3" },
+                    { "login": "simu4", "password": "simu4" }
+                  ]
+}
+

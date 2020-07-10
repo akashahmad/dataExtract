@@ -1,0 +1,65 @@
+.Signin-main-div{
+    /* background: #f6f6f6; */
+    min-height: 90vh;
+    padding: 30px 0px 0px 0px;
+}
+.Signin-main-div .inside-form{
+    background: #fff;
+    width: 58%;
+    margin: 9px 0px 0px 0px;
+    min-height: 80vh;
+    border-radius: 10px;
+}
+.inside-form .left-side-form-img{
+    background-image: url(../../assets/images/Signin.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 70vh;
+    width: 50%;
+}
+.left-side-form-img .logo{
+    min-height: 70vh;
+}
+.right-side-main-div{
+    width: 50%;
+}
+.right-side-main-div .right-side-heading{
+    height: 20vh;
+    padding: 10px 0px 0px 0px;
+    color: #0383c9;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+.right-side-main-div .right-side-heading h4{
+    font-weight: 600;
+}
+.right-side-main-div .signin-input-field input{
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    border: solid 1px #c9c9c9;
+    padding: 0px 0px 0px 5px;
+    margin: 10px 0px 0px 0px;
+}
+.right-side-main-div .label-main-dev{
+    width: 278px;
+    color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+}
+.right-side-main-div .input-field-password-main-div{
+    margin: 30px 0px 0px 0px;
+}
+.forgot-password{
+    color: #0383c9;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+}
+.login-feild{
+    width: 70%;
+}
+.logo-fixed img{
+    width:100%;
+    padding: 0 29px
+}
