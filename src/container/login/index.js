@@ -55,7 +55,7 @@ const Login = (props) => {
             <div className="right-side-main-div">
               {/* heading */}
               <div className="right-side-heading d-flex justify-content-center align-items-center">
-                <h4 className="text-align-center">Data Extract Login</h4>
+                <h4 className="text-align-center">Adaptive Data File Extract Login</h4>
               </div>
               {/* input fields of UserName*/}
               <div className="d-flex justify-content-center  align-items-center flex-column">
