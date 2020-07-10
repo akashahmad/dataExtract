@@ -6,8 +6,21 @@ const Container = () => {
     return (
         <Consumer>
             {
-                ({dispatch, user}) => (
+                ({
+                     dispatch, user, endDate,
+                     dataByTest, startDate,
+                     dataByEventUnselected,
+                     dataByEventSelected,
+                     dataByGradeUnselected,
+                     dataByGradeSelected
+                 }) => (
                     <Component dispatch={dispatch} user={user}
+                               endDate={endDate}
+                               dataByTest={dataByTest} startDate={startDate}
+                               dataByEventUnselected={dataByEventUnselected}
+                               dataByEventSelected={dataByEventSelected}
+                               dataByGradeUnselected={dataByGradeUnselected}
+                               dataByGradeSelected={dataByGradeSelected}
                     />
                 )
             }

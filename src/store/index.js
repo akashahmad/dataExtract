@@ -10,45 +10,47 @@ const reducer = (state, action) => {
                     loaded: true,
                     user: action.user,
                 };
-            case 'OBJ_NEW_ADMIN_UPDATE':
-                return {
-                    ...state,
-                    objNewAdmin: action.payload
-                };
-            case 'OBJ_SECOND_ADMIN_UPDATE':
-                return {
-                    ...state,
-                    objSecondAdmin: action.payload
-                };
-            case 'UNSELECT_DOMAINS_NEW':
-                return {
-                    ...state,
-                    unselectedDomainsNew: action.payload
-                };
-            case 'UNSELECT_DOMAINS_SECOND':
-                return {
-                    ...state,
-                    unselectedDomainsSecond: action.payload
-                };
             case 'SET_DOWNLOAD_URL':
                 return {
                     ...state,
                     downLoadUrl: action.payload
                 };
-            case 'SET_ITEM_POOL':
+            case 'SET_START_DATE': {
+                console.log("hello", action.payload)
                 return {
                     ...state,
-                    itemPools: action.payload
+                    startDate: action.payload
                 };
-            case 'ROUTE_CHECK':
+            }
+            case 'SET_END_DATE':
                 return {
                     ...state,
-                    routeCheck: action.payload
+                    endDate: action.payload
                 };
-            case 'SET_FILE_NAME':
+            case 'SET_TEST_DATA':
                 return {
                     ...state,
-                    fileName: action.payload
+                    dataByTest: action.payload
+                };
+            case 'SET_EVENT_UNSELECTED':
+                return {
+                    ...state,
+                    dataByEventUnselected: action.payload
+                };
+            case 'SET_EVENT_SELECTED':
+                return {
+                    ...state,
+                    dataByEventSelected: action.payload
+                };
+            case 'SET_GRADE_UNSELECTED':
+                return {
+                    ...state,
+                    dataByGradeSelected: action.payload
+                };
+            case 'SET_GRADE_SELECTED':
+                return {
+                    ...state,
+                    dataByGradeSelected: action.payload
                 };
             default:
                 return state;
@@ -65,6 +67,14 @@ export class Provider extends Component {
         loaded: false,
         user: typeof window !== 'undefined' && JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localStorage.getItem('currentUser')) : null,
         downLoadUrl: "",
+        startDate: null,
+        endDate: null,
+        dataByTest: "",
+        dataByEventUnselected: [],
+        dataByEventSelected: [],
+        dataByGradeUnselected: [],
+        dataByGradeSelected: [],
+
     };
 
     render() {

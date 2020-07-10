@@ -3,7 +3,7 @@ import ResearchData from '../../components/reasearchData/researchData'
 import {Link, withRouter} from 'react-router-dom';
 
 const Research = (props) => {
-    let {dispatch, history, user, location} = props;
+    let {dispatch, history, user, location, endDate, dataByTest, startDate, dataByEventUnselected, dataByEventSelected, dataByGradeUnselected, dataByGradeSelected} = props;
 
     useEffect(() => {
         if (!user) {
@@ -13,7 +13,12 @@ const Research = (props) => {
     }, [user, location.pathname]);
     return (
         <>
-        <ResearchData dispatch={dispatch}/>
+        <ResearchData dispatch={dispatch} user={user} endDate={endDate}
+                      dataByTest={dataByTest} startDate={startDate}
+                      dataByEventUnselected={dataByEventUnselected}
+                      dataByEventSelected={dataByEventSelected}
+                      dataByGradeUnselected={dataByGradeUnselected}
+                      dataByGradeSelected={dataByGradeSelected}/>
         </>
     );
 }

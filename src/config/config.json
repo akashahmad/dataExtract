@@ -1,5 +1,5 @@
 {
-  "apiUrl": "http://localhost:3001",
+  "apiUrl": "https://adaptive-file-extract-api-prod.rcs.rsiapps.com/adaptive/v1",
   "version": "1.0",
   "registeredUsers": [{ "login": "simu1", "password": "simu1" },
                     { "login": "simu2", "password": "simu2" },

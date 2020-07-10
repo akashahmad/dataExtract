@@ -22,7 +22,7 @@ const App = (props) => {
     }, [location.pathname]);
     return (
         <Provider>
-            <NotificationContainer enterTimeout={500} leaveTimeout={500}/>
+            <NotificationContainer/>
             <Switch>
                 <Route path={"/login"} exact component={Login}/>
                 <Route path={"/"} component={Routes}/>

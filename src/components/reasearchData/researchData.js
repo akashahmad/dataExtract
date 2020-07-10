@@ -2,11 +2,18 @@ import React from 'react'
 import './style.css'
 import DatePicker from 'react-date-picker';
 import {Link, withRouter} from 'react-router-dom';
+import {NotificationManager} from 'react-notifications';
 
 const ExtractData = (props) => {
-    let {dispatch, history, location} = props;
+    let {
+        dispatch, history, location, endDate, user,
+        dataByTest, startDate,
+        dataByEventUnselected,
+        dataByEventSelected,
+        dataByGradeUnselected,
+        dataByGradeSelected
+    } = props;
 
-    let date = new Date();
     return (
         <>
         <div className="container-fluid">
@@ -30,7 +37,27 @@ const ExtractData = (props) => {
                                             </div>
                                             <div>
                                                 <DatePicker
-                                                    value={date}
+                                                    onChange={(date) => {
+                                                        if (!date) {
+                                                            dispatch({
+                                                                type: "SET_START_DATE",
+                                                                payload: date
+                                                            })
+                                                        }
+                                                        else if (endDate && endDate < date) {
+                                                            dispatch({
+                                                                type: "SET_START_DATE",
+                                                                payload: endDate
+                                                            })
+                                                        } else {
+                                                            dispatch({
+                                                                type: "SET_START_DATE",
+                                                                payload: date
+                                                            })
+                                                        }
+
+                                                    }}
+                                                    value={startDate ? startDate : null}
                                                 />
                                             </div>
                                         </div>
@@ -41,7 +68,29 @@ const ExtractData = (props) => {
                                             </div>
                                             <div>
                                                 <DatePicker
-                                                    value={date}
+                                                    onChange={(date) => {
+                                                        console.log("date", date)
+                                                        if (!date) {
+                                                            dispatch({
+                                                                type: "SET_END_DATE",
+                                                                payload: date
+                                                            })
+                                                        }
+                                                        else if (startDate && date < startDate) {
+                                                            dispatch({
+                                                                type: "SET_END_DATE",
+                                                                payload: startDate
+                                                            })
+                                                        } else {
+                                                            dispatch({
+                                                                type: "SET_END_DATE",
+                                                                payload: date
+                                                            })
+                                                        }
+
+                                                    }}
+                                                    value={endDate ? endDate : null}
+
                                                 />
                                             </div>
                                         </div>
@@ -49,11 +98,18 @@ const ExtractData = (props) => {
                                     {/* data by set */}
                                     <div className="data-by-set">
                                         <div>
-                                            <h2>Data By Set</h2>
+                                            <h2>Data By Test <span className="staric-star">*</span></h2>
                                         </div>
                                         <div>
-                                            <select>
-                                                <option>Math</option>
+                                            <select onChange={(event) => {
+                                                dispatch({
+                                                    type: "SET_TEST_DATA",
+                                                    payload: event.target.value
+                                                })
+                                            }} value={dataByTest ? dataByTest : ""}>
+                                                <option value="">Select</option>
+                                                <option value="M">Math</option>
+                                                <option value="R">Reading</option>
                                             </select>
                                         </div>
                                     </div>
@@ -64,9 +120,12 @@ const ExtractData = (props) => {
                                         <div>
                                             <h2>Data By Events</h2>
                                         </div>
-                                        <div>
-                                            <select>
-                                                <option>Math</option>
+                                        <div onClick={() => {
+                                            if (!dataByTest)
+                                                NotificationManager.error('Please select data by test.', 'Alert', 5000);
+                                        }}>
+                                            <select disabled={!dataByTest}>
+                                                <option>Select</option>
                                             </select>
                                         </div>
                                     </div>
@@ -77,7 +136,7 @@ const ExtractData = (props) => {
                                         </div>
                                         <div>
                                             <select>
-                                                <option>Math</option>
+                                                <option>Select</option>
                                             </select>
                                         </div>
                                     </div>
@@ -90,7 +149,7 @@ const ExtractData = (props) => {
                                         </div>
                                         <div>
                                             <select>
-                                                <option>Math</option>
+                                                <option>Select</option>
                                             </select>
                                         </div>
                                     </div>
@@ -101,7 +160,7 @@ const ExtractData = (props) => {
                                         </div>
                                         <div>
                                             <select>
-                                                <option>Math</option>
+                                                <option>Select</option>
                                             </select>
                                         </div>
                                     </div>
@@ -114,7 +173,7 @@ const ExtractData = (props) => {
                                         </div>
                                         <div>
                                             <select>
-                                                <option>Math</option>
+                                                <option>Select</option>
                                             </select>
                                         </div>
                                     </div>
@@ -125,6 +184,7 @@ const ExtractData = (props) => {
                                         {/*<span className="Cancel cursor-pointer">Cancel</span>*/}
                                         <span className="Submit cursor-pointer"
                                               onClick={() => {
+                                                  history.push("/download");
                                               }}>Submit</span>
                                     </div>
                                 </div>
