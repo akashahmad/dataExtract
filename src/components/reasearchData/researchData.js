@@ -26,7 +26,7 @@ export default (props) => {
                                             {/* start date */}
                                             <div>
                                                 <div className="label-div">
-                                                    <label>Start Date</label>
+                                                    <h2>Start Date</h2>
                                                 </div>
                                                 <div>
                                                     <DatePicker
@@ -37,7 +37,7 @@ export default (props) => {
                                             {/* End date */}
                                             <div className="end-date-div">
                                                 <div className="label-div">
-                                                    <label>End Date</label>
+                                                    <h2>End Date</h2>
                                                 </div>
                                                 <div>
                                                     <DatePicker
@@ -49,7 +49,7 @@ export default (props) => {
                                         {/* data by set */}
                                         <div className="data-by-set">
                                             <div>
-                                                <label>Data By Set</label>
+                                                <h2>Data By Set</h2>
                                             </div>
                                             <div>
                                                 <select>
@@ -62,7 +62,7 @@ export default (props) => {
                                     <div className="main-div-of-another-inputs-and-labels">
                                         <div className="inside-div-of-others-input">
                                             <div>
-                                                <label>Data By Events</label>
+                                                <h2>Data By Events</h2>
                                             </div>
                                             <div>
                                                 <select>
@@ -73,7 +73,7 @@ export default (props) => {
                                         {/* data by garden */}
                                         <div className="inside-div-of-others-input padding-right-side-div">
                                             <div>
-                                                <label>Data By Grades</label>
+                                                <h2>Data By Grades</h2>
                                             </div>
                                             <div>
                                                 <select>
@@ -86,7 +86,7 @@ export default (props) => {
                                     <div className="main-div-of-another-inputs-and-labels">
                                         <div className="inside-div-of-others-input">
                                             <div>
-                                                <label>Data By District</label>
+                                                <h2>Data By District</h2>
                                             </div>
                                             <div>
                                                 <select>
@@ -97,7 +97,7 @@ export default (props) => {
                                         {/* data by building */}
                                         <div className="inside-div-of-others-input padding-right-side-div">
                                             <div>
-                                                <label>Data by Building</label>
+                                                <h2>Data by Building</h2>
                                             </div>
                                             <div>
                                                 <select>
@@ -110,7 +110,7 @@ export default (props) => {
                                     <div className="main-div-of-another-inputs-and-labels">
                                         <div className="inside-div-of-others-input">
                                             <div>
-                                                <label>Data By Classname</label>
+                                                <h2>Data By Classname</h2>
                                             </div>
                                             <div>
                                                 <select>
