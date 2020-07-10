@@ -25,7 +25,10 @@ const ExtractData = (props) => {
                             <h2>Rearserch Data</h2>
                         </div>
                         {/* form starts from here */}
-                        <form>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            history.push("/download");
+                        }}>
                             <div className="form-container">
                                 <div className="inside-form-div">
                                     {/* start Date and End date */}
@@ -106,7 +109,9 @@ const ExtractData = (props) => {
                                                     type: "SET_TEST_DATA",
                                                     payload: event.target.value
                                                 })
-                                            }} value={dataByTest ? dataByTest : ""}>
+                                            }} value={dataByTest ? dataByTest : ""}
+                                            required
+                                            >
                                                 <option value="">Select</option>
                                                 <option value="M">Math</option>
                                                 <option value="R">Reading</option>
@@ -182,10 +187,7 @@ const ExtractData = (props) => {
                                 <div className="buttons-main-div">
                                     <div className="inside-div-of-buttons">
                                         {/*<span className="Cancel cursor-pointer">Cancel</span>*/}
-                                        <span className="Submit cursor-pointer"
-                                              onClick={() => {
-                                                  history.push("/download");
-                                              }}>Submit</span>
+                                        <button type="submit" className="Submit cursor-pointer">Submit</button>
                                     </div>
                                 </div>
                             </div>
