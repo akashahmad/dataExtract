@@ -2,7 +2,9 @@ import React from 'react'
 import './style.css'
 import DatePicker from 'react-date-picker';
 import {Link, withRouter} from 'react-router-dom';
+import config from '../../config/config.json'
 import {NotificationManager} from 'react-notifications';
+import axios from 'axios';
 
 const ExtractData = (props) => {
     let {
@@ -41,26 +43,30 @@ const ExtractData = (props) => {
                                             <div>
                                                 <DatePicker
                                                     onChange={(date) => {
+                                                        let standardEndDate = endDate ? new Date(endDate) : null;
                                                         if (!date) {
                                                             dispatch({
                                                                 type: "SET_START_DATE",
                                                                 payload: date
                                                             })
                                                         }
-                                                        else if (endDate && endDate < date) {
+                                                        else if (standardEndDate && standardEndDate < date) {
+                                                            NotificationManager.error('Please ensure that the Start Date is less than or equal to the End Date.', 'Alert', 5000);
+                                                            let requiredDateStructure = new Date(endDate).toJSON();
                                                             dispatch({
                                                                 type: "SET_START_DATE",
-                                                                payload: endDate
+                                                                payload: requiredDateStructure
                                                             })
                                                         } else {
+                                                            let requiredDateStructure = new Date(date).toJSON();
                                                             dispatch({
                                                                 type: "SET_START_DATE",
-                                                                payload: date
+                                                                payload: requiredDateStructure
                                                             })
                                                         }
 
                                                     }}
-                                                    value={startDate ? startDate : null}
+                                                    value={startDate ? new Date(startDate) : null}
                                                 />
                                             </div>
                                         </div>
@@ -72,27 +78,30 @@ const ExtractData = (props) => {
                                             <div>
                                                 <DatePicker
                                                     onChange={(date) => {
-                                                        console.log("date", date)
+                                                        let standardStartDate = startDate ? new Date(startDate) : null;
                                                         if (!date) {
                                                             dispatch({
                                                                 type: "SET_END_DATE",
                                                                 payload: date
                                                             })
                                                         }
-                                                        else if (startDate && date < startDate) {
+                                                        else if (standardStartDate && date < standardStartDate) {
+                                                            NotificationManager.error('Please ensure that the End Date is greater than or equal to the Start Date.', 'Alert', 5000);
+                                                            let requiredDateStructure = new Date(startDate).toJSON();
                                                             dispatch({
                                                                 type: "SET_END_DATE",
-                                                                payload: startDate
+                                                                payload: requiredDateStructure
                                                             })
                                                         } else {
+                                                            let requiredDateStructure = new Date(date).toJSON();
                                                             dispatch({
                                                                 type: "SET_END_DATE",
-                                                                payload: date
+                                                                payload: requiredDateStructure
                                                             })
                                                         }
 
                                                     }}
-                                                    value={endDate ? endDate : null}
+                                                    value={endDate ? new Date(endDate) : null}
 
                                                 />
                                             </div>
@@ -109,8 +118,12 @@ const ExtractData = (props) => {
                                                     type: "SET_TEST_DATA",
                                                     payload: event.target.value
                                                 })
+                                                if (event.target.value) {
+                                                    axios.get(config.apiUrl + `/research/filters?level=event&test=${event.target.value}` + (startDate ? `&fromDate=${startDate}` : "") + (endDate ? `&toDate=${endDate}` : ""))
+
+                                                }
                                             }} value={dataByTest ? dataByTest : ""}
-                                            required
+                                                    required
                                             >
                                                 <option value="">Select</option>
                                                 <option value="M">Math</option>
