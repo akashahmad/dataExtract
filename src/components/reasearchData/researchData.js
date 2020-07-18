@@ -119,8 +119,12 @@ const ExtractData = (props) => {
                                                     payload: event.target.value
                                                 })
                                                 if (event.target.value) {
-                                                    axios.get(config.apiUrl + `/research/filters?level=event&test=${event.target.value}` + (startDate ? `&fromDate=${startDate}` : "") + (endDate ? `&toDate=${endDate}` : ""))
-
+                                                    axios.get(config.apiUrl + `/research/filters?level=event&test=${event.target.value}` + (startDate ? `&fromDate=${startDate}` : "") + (endDate ? `&toDate=${endDate}` : "")).then(res => {
+                                                        dispatch({
+                                                            type: "SET_EVENT_UNSELECTED",
+                                                            payload: res.data
+                                                        })
+                                                    })
                                                 }
                                             }} value={dataByTest ? dataByTest : ""}
                                                     required
@@ -142,8 +146,11 @@ const ExtractData = (props) => {
                                             if (!dataByTest)
                                                 NotificationManager.error('Please select data by test.', 'Alert', 5000);
                                         }}>
-                                            <select disabled={!dataByTest}>
+                                            <select disabled={!dataByTest && dataByEventUnselected}>
                                                 <option>Select</option>
+                                                {dataByEventUnselected && dataByEventUnselected.map((sin, ind) =>
+                                                    <option key={ind}
+                                                            value={JSON.stringify(sin)}>{sin.name}</option>)}
                                             </select>
                                         </div>
                                     </div>
