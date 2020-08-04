@@ -120,6 +120,22 @@ const ExtractData = (props) => {
                                                     payload: event.target.value
                                                 })
                                                 if (event.target.value) {
+                                                    dispatch({
+                                                        type: "SET_EVENT_UNSELECTED",
+                                                        payload: []
+                                                    });
+                                                    dispatch({
+                                                        type: "SET_EVENT_SELECTED",
+                                                        payload: []
+                                                    });
+                                                    dispatch({
+                                                        type: "SET_GRADE_UNSELECTED",
+                                                        payload: []
+                                                    });
+                                                    dispatch({
+                                                        type: "SET_GRADE_SELECTED",
+                                                        payload: []
+                                                    });
                                                     axios.get(config.apiUrl + `/research/filters?level=event&test=${event.target.value}` + (startDate ? `&fromDate=${startDate}` : "") + (endDate ? `&toDate=${endDate}` : "")).then(res => {
                                                         dispatch({
                                                             type: "SET_EVENT_UNSELECTED",
@@ -157,6 +173,14 @@ const ExtractData = (props) => {
                                                         let ids = duplicateDataByEventSelected.map(sin => {
                                                             return sin.id
                                                         });
+                                                        dispatch({
+                                                            type: "SET_GRADE_UNSELECTED",
+                                                            payload: []
+                                                        })
+                                                        dispatch({
+                                                            type: "SET_GRADE_SELECTED",
+                                                            payload: []
+                                                        })
                                                         axios.get(config.apiUrl + `/research/filters?level=grade&ids=${ids}`).then(res => {
                                                             dispatch({
                                                                 type: "SET_GRADE_UNSELECTED",
@@ -211,8 +235,11 @@ const ExtractData = (props) => {
                                         <div>
                                             <h2>Data By Grades</h2>
                                         </div>
-                                        <div>
-                                            <select value="" disabled={dataByGradeUnselected.length===0}
+                                        <div onClick={() => {
+                                            if (dataByGradeUnselected.length === 0)
+                                                NotificationManager.error('Please select data by event.', 'Alert', 5000);
+                                        }}>
+                                            <select value="" disabled={dataByGradeUnselected.length === 0}
                                                     onChange={(event) => {
                                                         let item = JSON.parse(event.target.value);
                                                         let duplicateDataByGradeSelected = [...dataByGradeSelected];
@@ -244,16 +271,16 @@ const ExtractData = (props) => {
                                                                 alt=""
                                                                 onClick={() => {
                                                                     let duplicateDataByGradeSelected = [...dataByGradeSelected];
-                                                                    let dataByGradeUnselected = [...dataByGradeUnselected];
+                                                                    let dublicateDataByGradeUnselected = [...dataByGradeUnselected];
                                                                     duplicateDataByGradeSelected = duplicateDataByGradeSelected.filter(single => single.id !== sin.id);
-                                                                    dataByGradeUnselected.push(sin);
+                                                                    dublicateDataByGradeUnselected.push(sin);
                                                                     dispatch({
                                                                         type: "SET_GRADE_SELECTED",
                                                                         payload: [...duplicateDataByGradeSelected]
                                                                     })
                                                                     dispatch({
                                                                         type: "SET_GRADE_UNSELECTED",
-                                                                        payload: [...dataByGradeUnselected]
+                                                                        payload: [...dublicateDataByGradeUnselected]
                                                                     })
                                                                 }}
                                                             /></div>
