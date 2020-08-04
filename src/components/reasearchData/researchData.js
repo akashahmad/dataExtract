@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './style.css'
 import DatePicker from 'react-date-picker';
 import {Link, withRouter} from 'react-router-dom';
 import config from '../../config/config.json'
 import {NotificationManager} from 'react-notifications';
+import BlurLoader from '../loader';
+
 import axios from 'axios';
 
 const ExtractData = (props) => {
@@ -15,8 +17,26 @@ const ExtractData = (props) => {
         dataByGradeUnselected,
         dataByGradeSelected
     } = props;
+    const [loader, setLoader] = useState(false);
 
-    console.log("dataByEventSelected", dataByGradeUnselected);
+    const submit = (e) => {
+        e.preventDefault()
+        let gradeIds = dataByGradeSelected.map(sin => {
+            return sin.id
+        });
+        let eventIds = dataByEventSelected.map(sin => {
+            return sin.id
+        });
+        setLoader(true);
+        axios.post(config.apiUrl + `/research/count?test=${dataByTest}` + (startDate ? `&fromDate=${startDate}` : "") + (endDate ? `&toDate=${endDate}` : "") + (eventIds && eventIds.length !==0 ? `&event=${eventIds}` : "") + (gradeIds && gradeIds.length !==0 ? `&grade=${gradeIds}` : ""))
+            .then(res => {
+                history.push("/download");
+            }).catch(err => {
+            setLoader(false);
+            NotificationManager.error('No Record found of given search.', 'Alert', 5000);
+        })
+    };
+
     return (
         <>
         <div className="container-fluid">
@@ -29,8 +49,7 @@ const ExtractData = (props) => {
                         </div>
                         {/* form starts from here */}
                         <form onSubmit={(e) => {
-                            e.preventDefault();
-                            history.push("/download");
+                            submit(e)
                         }}>
                             <div className="form-container">
                                 <div className="inside-form-div">
@@ -236,10 +255,10 @@ const ExtractData = (props) => {
                                             <h2>Data By Grades</h2>
                                         </div>
                                         <div onClick={() => {
-                                            if (dataByGradeUnselected.length === 0)
+                                            if (dataByGradeUnselected.length === 0 && dataByEventSelected.length===0)
                                                 NotificationManager.error('Please select data by event.', 'Alert', 5000);
                                         }}>
-                                            <select value="" disabled={dataByGradeUnselected.length === 0}
+                                            <select value="" disabled={dataByGradeUnselected.length === 0 && dataByEventSelected.length===0}
                                                     onChange={(event) => {
                                                         let item = JSON.parse(event.target.value);
                                                         let duplicateDataByGradeSelected = [...dataByGradeSelected];
@@ -340,6 +359,8 @@ const ExtractData = (props) => {
                 </div>
             </div>
         </div>
+        {(loader) && <BlurLoader />}
+
         </>
     );
 }
