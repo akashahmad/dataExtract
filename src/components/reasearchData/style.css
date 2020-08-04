@@ -129,3 +129,35 @@
     text-align: center;
     padding: 15px 0px 15px 0px;
 }
+
+.tags-container .tags {
+    width: 374px;
+}
+
+.tags-container .tags p {
+    padding: 0px 7px;
+    margin: 0;
+    padding: 0px 15px 1px 14px;
+    color: #b2b2b2;
+}
+
+.image-close {
+    padding: 4px 7px;
+    border-left: 1px solid #c9c9c9;
+}
+
+.tags-container .tags > div {
+    display: flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e7f4fd;
+    border-radius: 5px;
+    margin: 18px 24px 0 0px;
+    padding: 6px 6px 6px 0px;
+}
+
+.tags-container .tags img {
+    width: 13px;
+}

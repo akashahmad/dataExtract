@@ -16,6 +16,7 @@ const ExtractData = (props) => {
         dataByGradeSelected
     } = props;
 
+    console.log("dataByEventSelected", dataByGradeUnselected);
     return (
         <>
         <div className="container-fluid">
@@ -146,12 +147,63 @@ const ExtractData = (props) => {
                                             if (!dataByTest)
                                                 NotificationManager.error('Please select data by test.', 'Alert', 5000);
                                         }}>
-                                            <select disabled={!dataByTest && dataByEventUnselected}>
+                                            <select value="" disabled={!dataByTest && dataByEventUnselected}
+                                                    onChange={(event) => {
+                                                        let item = JSON.parse(event.target.value);
+                                                        let duplicateDataByEventSelected = [...dataByEventSelected];
+                                                        let duplicateDataByEventUnselected = [...dataByEventUnselected];
+                                                        duplicateDataByEventUnselected = duplicateDataByEventUnselected.filter(sin => sin.id !== item.id);
+                                                        duplicateDataByEventSelected.push(item);
+                                                        let ids = duplicateDataByEventSelected.map(sin => {
+                                                            return sin.id
+                                                        });
+                                                        axios.get(config.apiUrl + `/research/filters?level=grade&ids=${ids}`).then(res => {
+                                                            dispatch({
+                                                                type: "SET_GRADE_UNSELECTED",
+                                                                payload: res.data
+                                                            })
+                                                        });
+                                                        dispatch({
+                                                            type: "SET_EVENT_SELECTED",
+                                                            payload: [...duplicateDataByEventSelected]
+                                                        });
+                                                        dispatch({
+                                                            type: "SET_EVENT_UNSELECTED",
+                                                            payload: [...duplicateDataByEventUnselected]
+                                                        })
+                                                    }}>
                                                 <option>Select</option>
                                                 {dataByEventUnselected && dataByEventUnselected.map((sin, ind) =>
                                                     <option key={ind}
                                                             value={JSON.stringify(sin)}>{sin.name}</option>)}
                                             </select>
+                                            <div className="tags-container">
+                                                <div className="tags">
+                                                    {dataByEventSelected && dataByEventSelected.map((sin, ind) =>
+                                                        <div
+                                                            key={ind}>
+                                                            <p>{sin.name}</p>
+                                                            <div className="image-close"><img
+                                                                src={require('../../assets/images/close.png')}
+                                                                alt=""
+                                                                onClick={() => {
+                                                                    let duplicateDataByEventSelected = [...dataByEventSelected];
+                                                                    let duplicateDataByEventUnselected = [...dataByEventUnselected];
+                                                                    duplicateDataByEventSelected = duplicateDataByEventSelected.filter(single => single.id !== sin.id);
+                                                                    duplicateDataByEventUnselected.push(sin);
+                                                                    dispatch({
+                                                                        type: "SET_EVENT_SELECTED",
+                                                                        payload: [...duplicateDataByEventSelected]
+                                                                    })
+                                                                    dispatch({
+                                                                        type: "SET_EVENT_UNSELECTED",
+                                                                        payload: [...duplicateDataByEventUnselected]
+                                                                    })
+                                                                }}
+                                                            /></div>
+                                                        </div>)}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     {/* data by garden */}
@@ -160,9 +212,54 @@ const ExtractData = (props) => {
                                             <h2>Data By Grades</h2>
                                         </div>
                                         <div>
-                                            <select>
+                                            <select value="" disabled={dataByGradeUnselected.length===0}
+                                                    onChange={(event) => {
+                                                        let item = JSON.parse(event.target.value);
+                                                        let duplicateDataByGradeSelected = [...dataByGradeSelected];
+                                                        let duplicateDataByGradeUnselected = [...dataByGradeUnselected];
+                                                        duplicateDataByGradeUnselected = duplicateDataByGradeUnselected.filter(sin => sin.id !== item.id);
+                                                        duplicateDataByGradeSelected.push(item);
+                                                        dispatch({
+                                                            type: "SET_GRADE_SELECTED",
+                                                            payload: [...duplicateDataByGradeSelected]
+                                                        });
+                                                        dispatch({
+                                                            type: "SET_GRADE_UNSELECTED",
+                                                            payload: [...duplicateDataByGradeUnselected]
+                                                        })
+                                                    }}>
                                                 <option>Select</option>
+                                                {dataByGradeUnselected && dataByGradeUnselected.map((sin, ind) =>
+                                                    <option key={ind}
+                                                            value={JSON.stringify(sin)}>{sin.name}</option>)}
                                             </select>
+                                            <div className="tags-container">
+                                                <div className="tags">
+                                                    {dataByGradeSelected && dataByGradeSelected.map((sin, ind) =>
+                                                        <div
+                                                            key={ind}>
+                                                            <p>{sin.name}</p>
+                                                            <div className="image-close"><img
+                                                                src={require('../../assets/images/close.png')}
+                                                                alt=""
+                                                                onClick={() => {
+                                                                    let duplicateDataByGradeSelected = [...dataByGradeSelected];
+                                                                    let dataByGradeUnselected = [...dataByGradeUnselected];
+                                                                    duplicateDataByGradeSelected = duplicateDataByGradeSelected.filter(single => single.id !== sin.id);
+                                                                    dataByGradeUnselected.push(sin);
+                                                                    dispatch({
+                                                                        type: "SET_GRADE_SELECTED",
+                                                                        payload: [...duplicateDataByGradeSelected]
+                                                                    })
+                                                                    dispatch({
+                                                                        type: "SET_GRADE_UNSELECTED",
+                                                                        payload: [...dataByGradeUnselected]
+                                                                    })
+                                                                }}
+                                                            /></div>
+                                                        </div>)}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

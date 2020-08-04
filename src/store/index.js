@@ -45,7 +45,7 @@ const reducer = (state, action) => {
             case 'SET_GRADE_UNSELECTED':
                 return {
                     ...state,
-                    dataByGradeSelected: action.payload
+                    dataByGradeUnselected: action.payload
                 };
             case 'SET_GRADE_SELECTED':
                 return {

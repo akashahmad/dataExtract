@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './style.css'
 import {withRouter} from 'react-router-dom';
 import HeaderImage from '../../assets/images/bitmap.png';
@@ -7,11 +7,16 @@ import Header from '../../components/header/container';
 import cookie from 'react-cookies'
 
 const Login = (props) => {
-  let {history, dispatch} = props;
+  let {history, dispatch, user} = props;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+    useEffect(() => {
+        if (user) {
+            history.push("/")
+        }
+        // eslint-disable-next-line
+    }, [user, location.pathname]);
   const userAuthentication = e => {
     e.preventDefault();
     if (!username || !password) {
